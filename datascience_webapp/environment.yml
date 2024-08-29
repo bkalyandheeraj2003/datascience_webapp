@@ -11,3 +11,5 @@ dependencies:
     - numpy
     - matplotlib
     - wordcloud
+    - pydeck
+    - gdown

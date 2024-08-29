@@ -29,13 +29,15 @@ def load_data(nrows):
     lowercase = lambda x: str(x).lower()
     data.rename(lowercase, axis="columns", inplace=True)
     data.rename(columns={"crash_date_crash_time": "date/time"}, inplace=True)
-    #data = data[['date/time', 'latitude', 'longitude']]
     return data
 
 data = load_data(15000)
-if st.checkbox("Show Raw Data", False):
+
+# Add unique keys to checkboxes
+if st.checkbox("Show Raw Data", False, key="raw_data_overview"):
     st.header("Raw Column Table Data")
     st.write(data)
+
 data[['latitude', 'longitude']].to_csv('lat_long.csv', index=False)
 
 st.header("Where are the most people injured in NYC?")
@@ -71,7 +73,8 @@ st.write(pdk.Deck(
         ),
     ],
 ))
-if st.checkbox("Show Raw Data", False):
+
+if st.checkbox("Show Raw Data", False, key="raw_data_by_minute"):
     st.subheader("Raw data by minute between %i:00 and %i:00" % (hour, (hour + 1) % 24))
     st.write(data)
 
